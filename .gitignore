@@ -45,3 +45,15 @@ target_wrapper.*
 # QtCtreator CMake
 CMakeLists.txt.user*
 
+DrawingBoard/DrawingBoard.opensdf
+DrawingBoard/DrawingBoard.sdf
+*.suo
+*.log
+*.pch
+*.tlog
+*.obj
+*.pdb
+*.ipch
+*.exe
+*.ilk
+*.user
