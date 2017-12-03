@@ -7,20 +7,6 @@ class VxMainWindoswImpl : public Impl<VxMainWindosw>
 public:
     VX_EMPTY_CTOR(VxMainWindosw);
 
-    virtual void init() override
-    {
-        VX_Q(VxMainWindosw);
-
-        _world = new VxWorld(q);
-        _input = new QLineEdit(q);
-        QVBoxLayout * mainLayout = new QVBoxLayout();
-        mainLayout->addWidget(_input);
-        mainLayout->addWidget(_world);
-        QWidget *centralWidget = new QWidget(q);
-        centralWidget->setLayout(mainLayout);
-        q->setCentralWidget(centralWidget);
-    }
-
 public:
     VxWorld *_world;
     QLineEdit *_input;
@@ -41,10 +27,24 @@ QWidget *parent
     d->_databaseManager = databaseManager;
     d->_commandManager = commandManager;
 
-    connect(d->_input, &QLineEdit::textEdited, d->_commandManager, &VxCommandManager::handleCommand);
+    d->_world = new VxWorld(this);
+    d->_input = new QLineEdit(this);
+    QVBoxLayout * mainLayout = new QVBoxLayout();
+    mainLayout->addWidget(d->_input);
+    mainLayout->addWidget(d->_world);
+    QWidget *centralWidget = new QWidget(this);
+    centralWidget->setLayout(mainLayout);
+    setCentralWidget(centralWidget);
+
+    connect(d->_input, &QLineEdit::returnPressed, this, &VxMainWindosw::sendcommand);
 }
 
 VxMainWindosw::~VxMainWindosw()
 {
 
+}
+
+void VxMainWindosw::sendcommand()
+{
+    d->_commandManager->handleCommand(d->_input->text());
 }

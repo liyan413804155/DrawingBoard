@@ -2,14 +2,13 @@
 
 #include "VxDatabaseManager.h"
 
-class VxCommandManager : public QObject
+class VxCommandManager
 {
-    Q_OBJECT
 public:
     VxCommandManager(VxDatabaseManager* databaseManager);
     ~VxCommandManager();
 
-public slots:
+public:
     void handleCommand(const QString& command);
 
 private:

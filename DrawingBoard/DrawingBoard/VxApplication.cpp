@@ -9,20 +9,10 @@ class VxApplicationImpl : public Impl<VxApplication>
 public:
     VX_EMPTY_CTOR(VxApplication)
 
-    virtual void init()override
-    {
-        _dataManager.reset(new VxDatabaseManager);
-
-        _commandManager.reset(new VxCommandManager(_dataManager.data()));
-
-        _mainwindow.reset(new VxMainWindosw(_dataManager.data(), _commandManager.data()));
-        _mainwindow->showMaximized();
-    }
-
 public:
-    QSharedPointer<VxDatabaseManager> _dataManager;
-    QSharedPointer<VxCommandManager>  _commandManager;
-    QSharedPointer<VxMainWindosw>     _mainwindow;
+    VxDatabaseManager* _dataManager;
+    VxCommandManager*  _commandManager;
+    VxMainWindosw*     _mainwindow;
 };
 
 VxApplication::VxApplication(int& argc, char **argv)
@@ -30,10 +20,19 @@ VxApplication::VxApplication(int& argc, char **argv)
 {
     VX_I(VxApplication);
 
+    d->_dataManager = new VxDatabaseManager;
+    d->_commandManager = new VxCommandManager(d->_dataManager);
+    d->_mainwindow = new VxMainWindosw(d->_dataManager, d->_commandManager);
+
+    d->_mainwindow->showMaximized();
     d->_mainwindow->show();
 }
 
 VxApplication::~VxApplication()
 {
+    VX_E(VxApplication);
 
+    delete d->_dataManager;
+    delete d->_commandManager;
+    delete d->_mainwindow;
 }

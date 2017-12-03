@@ -10,17 +10,13 @@ class Impl
 {
 public:
     inline Impl(){}
-    inline virtual ~Impl(){ deinit(); }
-    inline void operator ()(SELF* self){ __self__ = self; }
-    inline virtual void init(){}
-    inline virtual void deinit(){}
+    inline ~Impl(){}
 public:
-    SELF* __self__;
+    SELF* q;
 };
 
-#define VX_P(classname) friend class classname##Impl; QSharedPointer<classname##Impl> __impl__;
-#define VX_D(classname) classname##Impl *d = __impl__.data();
-#define VX_I(classname) __impl__.reset(new classname##Impl);(*__impl__)(this);VX_D(classname);d->init();
-#define VX_Q(classname) classname *q = __self__;
+#define VX_P(classname) friend class classname##Impl; classname##Impl *d;
+#define VX_I(classname) d = new classname##Impl; d->q = this;
+#define VX_E(classname) QScopedPointer<classname##Impl> __E__(d);
 
 #define VX_EMPTY_CTOR(classname) classname##Impl(){} ~classname##Impl(){} 

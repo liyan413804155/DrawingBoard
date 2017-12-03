@@ -12,5 +12,8 @@ public:
     ~VxMainWindosw();
 
 private:
+    void sendcommand();
+
+private:
     VX_P(VxMainWindosw);
 };

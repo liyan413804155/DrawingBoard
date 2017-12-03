@@ -20,7 +20,7 @@ VxCommandManager::VxCommandManager(VxDatabaseManager* databaseManager)
 
 VxCommandManager::~VxCommandManager()
 {
-
+    VX_E(VxCommandManager);
 }
 
 void VxCommandManager::handleCommand(const QString& command)

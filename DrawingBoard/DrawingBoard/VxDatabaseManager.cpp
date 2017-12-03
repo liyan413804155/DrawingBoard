@@ -15,5 +15,5 @@ VxDatabaseManager::VxDatabaseManager()
 
 VxDatabaseManager::~VxDatabaseManager()
 {
-
+    VX_E(VxDatabaseManager);
 }

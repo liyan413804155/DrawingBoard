@@ -57,3 +57,5 @@ DrawingBoard/DrawingBoard.sdf
 *.exe
 *.ilk
 *.user
+*.db
+*.opendb
